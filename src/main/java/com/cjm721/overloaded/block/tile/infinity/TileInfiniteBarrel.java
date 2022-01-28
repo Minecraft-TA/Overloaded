@@ -17,6 +17,8 @@ public class TileInfiniteBarrel extends TileEntity implements IDataUpdate {
     @Nonnull
     private final LongItemStorage itemStorage;
 
+    private long lastTick = 0;
+
     public TileInfiniteBarrel() {
         itemStorage = new LongItemStorage(this);
     }
@@ -59,5 +61,17 @@ public class TileInfiniteBarrel extends TileEntity implements IDataUpdate {
     @Override
     public void dataUpdated() {
         markDirty();
+    }
+
+    @Override
+    public void markDirty() {
+        if (this.world != null) {
+            long currentTick = this.world.getTotalWorldTime();
+            if (lastTick == currentTick)
+                return;
+
+            lastTick = currentTick;
+            this.world.markChunkDirty(this.pos, this);
+        }
     }
 }

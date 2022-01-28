@@ -3,11 +3,10 @@ package com.cjm721.overloaded;
 import com.cjm721.overloaded.config.OverloadedConfig;
 import com.cjm721.overloaded.network.handler.ConfigSyncHandler;
 import com.cjm721.overloaded.proxy.CommonProxy;
-import com.google.gson.Gson;
-import net.minecraftforge.fml.common.FMLLog;
+import com.cjm721.overloaded.util.UnsafeItemStack;
+import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -15,11 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
-import static com.cjm721.overloaded.config.ForgeOverloadedConfigHolder.overloadedConfig;
-
 @Mod(modid = Overloaded.MODID, version = Overloaded.VERSION,
         acceptedMinecraftVersions = "[1.12,1.13)",
-        certificateFingerprint = "${FINGERPRINT}",
         useMetadata = true
 )
 public class Overloaded {
@@ -28,7 +24,7 @@ public class Overloaded {
     public static Overloaded instance;
 
     public static final String MODID = "overloaded";
-    static final String VERSION = "${mod_version}";
+    static final String VERSION = "0.0.59";
 
     private static final String PROXY_CLIENT = "com.cjm721.overloaded.proxy.ClientProxy";
     private static final String PROXY_SERVER = "com.cjm721.overloaded.proxy.ServerProxy";
@@ -58,10 +54,6 @@ public class Overloaded {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
-    }
-
-    @Mod.EventHandler
-    public void onFingerprintException(FMLFingerprintViolationEvent event) {
-        FMLLog.log.warn("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported by the cjm721!");
+        System.out.println(UnsafeItemStack.create(Items.APPLE, 1));
     }
 }
