@@ -4,7 +4,6 @@ import com.cjm721.overloaded.Overloaded;
 import com.cjm721.overloaded.block.ModBlock;
 import com.cjm721.overloaded.block.tile.TileCreativeGeneratorFE;
 import com.cjm721.overloaded.client.render.dynamic.ImageUtil;
-import com.cjm721.overloaded.client.render.dynamic.general.ResizeableTextureGenerator;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

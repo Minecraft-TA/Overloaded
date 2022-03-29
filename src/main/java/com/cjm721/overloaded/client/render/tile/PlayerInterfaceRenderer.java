@@ -7,9 +7,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.UUID;
 
@@ -29,9 +27,6 @@ public class PlayerInterfaceRenderer extends TileEntitySpecialRenderer<TilePlaye
         GlStateManager.popAttrib();
     }
 
-    private UUID uuidCache;
-    private ItemStack stackCache;
-
     private void renderPlayer(TilePlayerInterface te) {
         UUID uuid = te.getPlacer();
 
@@ -41,16 +36,7 @@ public class PlayerInterfaceRenderer extends TileEntitySpecialRenderer<TilePlaye
         EntityPlayer player = te.getWorld().getPlayerEntityByUUID(uuid);
 
         if (player == null) {
-            if (uuid.equals(uuidCache)) {
-                renderItem(stackCache);
-            } else {
-                uuidCache = uuid;
-                stackCache = new ItemStack(Items.SKULL, 1, 3);
-                NBTTagCompound tag = new NBTTagCompound();
-                tag.setString("SkullOwner", uuid.toString());
-                stackCache.setTagCompound(tag);
-                renderItem(stackCache);
-            }
+            renderItem(te.getStackCache());
             return;
         }
 
